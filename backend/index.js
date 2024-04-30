@@ -22,7 +22,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://todo-wine-three.vercel.app/login",
+    origin: "*",
   })
 );
 
