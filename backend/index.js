@@ -16,7 +16,7 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const { authenticateToken } = require("./utilities");
 
-const ACCESS_TOKEN = process.env.ACCESS_TOKEN_SECRET || ACCESS_TOKEN_SECRET
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || ACCESS_TOKEN_SECRET
 
 app.use(express.json());
 
@@ -67,7 +67,7 @@ app.post("/create-account", async (req, res) => {
 
   await user.save();
 
-  const accessToken = jwt.sign({ user }, ACCESS_TOKEN, {
+  const accessToken = jwt.sign({ user }, ACCESS_TOKEN_SECRET, {
     expiresIn: "36000m",
   });
 
@@ -98,7 +98,7 @@ app.post("/login", async (req, res) => {
 
   if (userInfo.email == email && userInfo.password == password) {
     const user = { user: userInfo };
-    const accessToken = jwt.sign(user, ACCESS_TOKEN, {
+    const accessToken = jwt.sign(user, ACCESS_TOKEN_SECRET, {
       expiresIn: "36000m",
     });
     return res.json({
